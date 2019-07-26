@@ -21,4 +21,19 @@ module.exports = (app) => {
             .then(livros => resp.marko(require('../views/livros/lista.marko'), { livros }))
             .catch(err => console.error(err));
     });
+
+    app.get('/livros/form', function(req, resp) {
+        resp.marko(require('../views/livros/form.marko'))
+    });
+
+    app.post('/livros', (req, resp) => {
+        console.log(req.body);
+        const livrosDAO = new LivrosDAO(db);
+        livrosDAO.adiciona(req.body)
+                .then(() => resp.redirect('/livros'))
+                .catch((msg) => {
+                    console.log('msg');
+                    resp.redirect('/livros/form');
+                });
+    });
 };
