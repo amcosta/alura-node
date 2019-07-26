@@ -27,7 +27,6 @@ module.exports = (app) => {
     });
 
     app.post('/livros', (req, resp) => {
-        console.log(req.body);
         const livrosDAO = new LivrosDAO(db);
         livrosDAO.adiciona(req.body)
                 .then(() => resp.redirect('/livros'))
