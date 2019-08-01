@@ -6,6 +6,7 @@ const app = express();
 const routes = require('../app/routes/routes');
 const bodyParser = require('body-parser');
 
+app.use('/estatico', express.static('src/app/public'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));

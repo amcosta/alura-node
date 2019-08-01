@@ -35,4 +35,11 @@ module.exports = (app) => {
                     resp.redirect('/livros/form');
                 });
     });
+
+    app.delete('/livros/:id', (req, resp) => {
+        const livrosDAO = new LivrosDAO(db);
+        livrosDAO.remove(req.params.id);
+
+        resp.status(200).end();
+    });
 };
