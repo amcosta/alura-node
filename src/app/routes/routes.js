@@ -23,7 +23,15 @@ module.exports = (app) => {
     });
 
     app.get('/livros/form', function(req, resp) {
-        resp.marko(require('../views/livros/form.marko'))
+        resp.marko(require('../views/livros/form.marko'), { livro: {}})
+    });
+
+    app.get('/livros/form/:id', (req, resp) => {
+        const livroDAO = new LivrosDAO(db);
+        livroDAO.buscaPorId(req.params.id)
+            .then(livro => resp.marko(require('../views/livros/form.marko'), { livro }))
+            .catch(error => console.error(error));
+        
     });
 
     app.post('/livros', (req, resp) => {
