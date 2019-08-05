@@ -44,6 +44,16 @@ module.exports = (app) => {
                 });
     });
 
+    app.put('/livros', (req, resp) => {
+        const livrosDAO = new LivrosDAO(db);
+        livrosDAO.edita(req.body)
+                .then(() => resp.redirect('/livros'))
+                .catch((msg) => {
+                    console.log('msg');
+                    resp.redirect('/livros/form');
+                });
+    });
+
     app.delete('/livros/:id', (req, resp) => {
         const livrosDAO = new LivrosDAO(db);
         livrosDAO.remove(req.params.id);
